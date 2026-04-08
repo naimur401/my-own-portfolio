@@ -28,7 +28,7 @@ const contactLinks = [
     icon: File,
     label: 'Resume',
     value: 'Download CV',
-    href: '/Resume (1).pdf',
+    href: '/resume.pdf',
     color: 'from-green-400 to-green-600',
   },
 ]
