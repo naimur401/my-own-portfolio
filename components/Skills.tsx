@@ -1,29 +1,70 @@
-import { Badge } from '@/components/ui/badge'
+﻿'use client'
+
+import { useState } from 'react'
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss,
+  SiNodedotjs, SiExpress, SiDjango, SiMongodb,
+  SiPostgresql, SiFirebase, SiGit, SiGithub,
+  SiJsonwebtokens, SiStripe
+} from 'react-icons/si'
 
 const skillCategories = [
   {
     title: 'Frontend',
-    skills: ['React', 'Tailwind CSS', 'TypeScript', 'Next.js'],
+    color: 'from-blue-500 to-cyan-500',
+    bg: 'bg-blue-50',
+    border: 'border-blue-200',
+    skills: [
+      { name: 'React', icon: SiReact, color: '#61DAFB' },
+      { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+    ],
   },
   {
     title: 'Backend',
-    skills: ['Node.js', 'Express', 'Django', 'REST APIs'],
+    color: 'from-green-500 to-emerald-500',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+    skills: [
+      { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
+      { name: 'Express', icon: SiExpress, color: '#000000' },
+      { name: 'Django', icon: SiDjango, color: '#092E20' },
+      { name: 'REST APIs', icon: SiNodedotjs, color: '#FF6C37' },
+    ],
   },
   {
     title: 'Database',
-    skills: ['MongoDB', 'PostgreSQL', 'Firebase'],
+    color: 'from-purple-500 to-violet-500',
+    bg: 'bg-purple-50',
+    border: 'border-purple-200',
+    skills: [
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+      { name: 'Firebase', icon: SiFirebase, color: '#FFCA28' },
+    ],
   },
   {
     title: 'Tools & Others',
-    skills: ['Git', 'GitHub', 'JWT', 'Stripe'],
+    color: 'from-orange-500 to-red-500',
+    bg: 'bg-orange-50',
+    border: 'border-orange-200',
+    skills: [
+      { name: 'Git', icon: SiGit, color: '#F05032' },
+      { name: 'GitHub', icon: SiGithub, color: '#181717' },
+      { name: 'JWT', icon: SiJsonwebtokens, color: '#000000' },
+      { name: 'Stripe', icon: SiStripe, color: '#635BFF' },
+    ],
   },
 ]
 
 export default function Skills() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
+
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Skills & Technologies
@@ -33,26 +74,52 @@ export default function Skills() {
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Category Cards - 2x2 grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category) => (
             <div
               key={category.title}
-              className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:border-blue-200 transition-colors"
+              onMouseEnter={() => setHoveredCategory(category.title)}
+              onMouseLeave={() => setHoveredCategory(null)}
+              className={`rounded-2xl p-8 border-2 ${category.bg} ${category.border} transition-all duration-300 ${
+                hoveredCategory === category.title ? 'shadow-xl -translate-y-2' : 'shadow-sm'
+              }`}
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <Badge
-                    key={skill}
-                    variant="secondary"
-                    className="bg-blue-100 text-blue-700 hover:bg-blue-200"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
+              {/* Category Header */}
+              <div className="mb-6">
+                <div className={`inline-block bg-gradient-to-r ${category.color} rounded-lg px-4 py-1.5 mb-3`}>
+                  <h3 className="text-base font-bold text-white">{category.title}</h3>
+                </div>
+                <div className={`h-0.5 bg-gradient-to-r ${category.color} rounded-full opacity-30`}></div>
+              </div>
+
+              {/* Skills - horizontal wrap */}
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => {
+                  const Icon = skill.icon
+                  const isHovered = hoveredSkill === `${category.title}-${skill.name}`
+                  return (
+                    <div
+                      key={skill.name}
+                      onMouseEnter={() => setHoveredSkill(`${category.title}-${skill.name}`)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      className={`flex items-center gap-3 px-5 py-3 rounded-xl bg-white border transition-all duration-200 cursor-default ${
+                        isHovered
+                          ? 'shadow-md border-gray-300 scale-105'
+                          : 'border-gray-100 shadow-sm'
+                      }`}
+                    >
+                      <div className={`transition-transform duration-200 ${isHovered ? 'scale-125 rotate-12' : ''}`}>
+                        <Icon size={28} color={skill.color} />
+                      </div>
+                      <span className={`text-base font-semibold transition-colors duration-200 ${
+                        isHovered ? 'text-gray-900' : 'text-gray-700'
+                      }`}>
+                        {skill.name}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           ))}

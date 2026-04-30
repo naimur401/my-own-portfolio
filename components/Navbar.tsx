@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react'
 
 const navItems = [
   { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
   { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
