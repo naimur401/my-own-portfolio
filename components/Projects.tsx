@@ -6,6 +6,29 @@ import { Badge } from "@/components/ui/badge"
 
 const projects = [
   {
+    id: 0,
+    title: "Nexora Cloud Platform",
+    subtitle: "Multi-Tenant SaaS Project Management System",
+    description: "Enterprise-grade multi-tenant SaaS platform with complete company isolation, RBAC (Super Admin/Company Admin/Team Member), and real-time collaboration. Features 50+ REST APIs, JWT authentication, audit trail, analytics dashboard, Kanban board, file uploads, subscription management, and team invitations.",
+    tech: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS", "Docker", "Supabase", "Render", "Vercel"],
+    features: [
+      "Multi-tenant architecture with complete company isolation & RBAC",
+      "50+ REST APIs with JWT auth & enterprise audit trail (IP tracking)",
+      "Interactive analytics dashboard with Recharts (pie, bar, line charts)",
+      "Kanban board with HTML5 Drag & Drop and real-time sync",
+      "Cloudinary file attachments + Subscription management (Free/Pro/Enterprise)",
+      "Team invitation system with token-based authentication",
+      "Dockerized deployment on Vercel + Render + Supabase",
+    ],
+    liveUrl: "https://nexora-cloud-platform-saa-s-proj-git-6669c3-naimur401s-projects.vercel.app",
+    githubUrl: "https://github.com/naimur401/Nexora-Cloud-Platform-SaaS-Project-Management-System",
+    gradient: "from-indigo-600 to-purple-500",
+    checkColor: "from-indigo-600 to-purple-500",
+    border: "border-indigo-200 dark:border-indigo-800",
+    emoji: "🚀",
+    featured: true,
+  },
+  {
     id: 1,
     title: "E-Tutor",
     subtitle: "Online Learning Platform",
@@ -163,8 +186,16 @@ export default function Projects() {
               key={project.id}
               variants={cardVariants}
               whileHover={{ scale: 1.02, y: -4 }}
-              className={"relative bg-white dark:bg-gray-900 rounded-2xl border-2 " + project.border + " overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full"}
+              className={"relative bg-white dark:bg-gray-900 rounded-2xl border-2 " + project.border + " overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full" + (project.featured ? " ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-950" : "")}
             >
+              {/* Featured Badge */}
+              {project.featured && (
+                <div className="absolute top-3 right-3 z-10 flex items-center gap-1 bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-2.5 py-1 rounded-full text-[10px] font-bold shadow-lg">
+                  <Star size={10} className="fill-white" />
+                  FEATURED
+                </div>
+              )}
+
               <div className={"h-1.5 w-full bg-gradient-to-r " + project.gradient} />
 
               <div className="p-6 flex flex-col h-full">
